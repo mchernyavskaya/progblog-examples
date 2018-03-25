@@ -1,7 +1,6 @@
 package immutables;
 
 import immutables.model.ImmutablePerson;
-import immutables.model.Person;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,11 +13,14 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        final Person anna = ImmutablePerson.builder()
+        final ImmutablePerson anna = ImmutablePerson.builder()
                 .age(31)
                 .firstName("Anna")
                 .lastName("Smith")
                 .build();
         System.out.println(anna);
+
+        final ImmutablePerson annaTheSecond = anna.withAge(23).withLastName("Smurf");
+        System.out.println(annaTheSecond);
     }
 }

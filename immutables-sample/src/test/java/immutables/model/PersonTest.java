@@ -19,7 +19,8 @@ public class PersonTest {
 
     @Test
     public void testEquals() throws Exception {
-        Person JOHN_COPY = ImmutablePerson.builder().from(JOHN).build();
+        //ImmutablePerson JOHN_COPY = ImmutablePerson.builder().from(JOHN).build();
+        Person JOHN_COPY = ImmutablePerson.copyOf(JOHN);
         assertThat(JOHN_COPY).isEqualTo(JOHN);
     }
 
@@ -30,13 +31,13 @@ public class PersonTest {
 
     @Test
     public void testHashCode() throws Exception {
-        Person JOHN_COPY = ImmutablePerson.builder().from(JOHN).build();
+        Person JOHN_COPY = ImmutablePerson.copyOf(JOHN);
         assertThat(JOHN_COPY.hashCode()).isEqualTo(JOHN.hashCode());
     }
 
     @Test
     public void testHashCodeNotEquals() throws Exception {
-        Person JOHN_COPY = ImmutablePerson.builder().from(JOHN).build();
+        Person JOHN_COPY = ImmutablePerson.copyOf(JOHN);
         assertThat(JOHN_COPY.hashCode()).isNotEqualTo(JANE.hashCode());
     }
 
