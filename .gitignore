@@ -26,3 +26,5 @@
 hs_err_pid*
 
 /node-rest-sample/node_modules/
+.DS_Store
+gradle-wrapper.properties
