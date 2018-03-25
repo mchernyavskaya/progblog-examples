@@ -10,14 +10,15 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath('io.franzbecker:gradle-lombok:1.11')
+        classpath('com.google.auto.value:auto-value:1.5.4')
+        classpath('net.ltgt.gradle:gradle-apt-plugin:0.15')
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
-apply plugin: 'io.franzbecker.gradle-lombok'
+apply plugin: 'net.ltgt.apt'
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
@@ -29,14 +30,10 @@ repositories {
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter')
+    compileOnly('com.google.auto.value:auto-value:1.5.4')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 springBoot {
-    mainClass = 'lombokify.Application'
-}
-
-lombok {
-    version = '1.16.20'
-    sha256 = ''
+    mainClass = 'autovalue.Application'
 }
