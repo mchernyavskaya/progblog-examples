@@ -1,16 +1,14 @@
 package statemachine;
 
 import org.slf4j.Logger;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.statemachine.action.Action;
 import org.springframework.statemachine.config.EnableStateMachine;
 import org.springframework.statemachine.config.EnumStateMachineConfigurerAdapter;
 import org.springframework.statemachine.config.builders.StateMachineConfigurationConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineStateConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer;
 
-import static statemachine.LoggingUtils.getStateInfo;
+import java.util.EnumSet;
 
 @Configuration
 @EnableStateMachine
@@ -19,14 +17,13 @@ class MachineConfiguration extends EnumStateMachineConfigurerAdapter<BookStates,
 
     @Override
     public void configure(StateMachineStateConfigurer<BookStates, BookEvents> states) throws Exception {
-        states.withStates().initial(BookStates.AVAILABLE)
-                .state(BookStates.AVAILABLE, executeAction(), errorAction())
-                .state(BookStates.BORROWED, executeAction(), errorAction())
-                .state(BookStates.IN_REPAIR, executeAction(), errorAction());
-
-//        states.withStates()
-//                .initial(BookStates.AVAILABLE)
-//                .states(EnumSet.allOf(BookStates.class));
+//        states.withStates().initial(BookStates.AVAILABLE)
+//                .state(BookStates.AVAILABLE, entryAction(), exitAction())
+//                .state(BookStates.BORROWED, entryAction(), exitAction())
+//                .state(BookStates.IN_REPAIR, entryAction(), exitAction());
+        states.withStates()
+                .initial(BookStates.AVAILABLE)
+                .states(EnumSet.allOf(BookStates.class));
     }
 
     @Override
@@ -57,23 +54,23 @@ class MachineConfiguration extends EnumStateMachineConfigurerAdapter<BookStates,
     public void configure(StateMachineConfigurationConfigurer<BookStates, BookEvents> config) throws Exception {
         config.withConfiguration()
                 .autoStartup(true)
-                //.listener(new LoggingMashineListener())
+                .listener(new LoggingMashineListener())
         ;
     }
 
-    @Bean
-    public Action<BookStates, BookEvents> executeAction() {
-        return ctx -> LOGGER.info("Executed {} to get from {} to {}",
-                ctx.getEvent(),
-                getStateInfo(ctx.getSource()),
-                getStateInfo(ctx.getTarget()));
-    }
-
-    @Bean
-    public Action<BookStates, BookEvents> errorAction() {
-        return ctx -> LOGGER.error("Failed to execute {} to get from {} to {}",
-                ctx.getEvent(),
-                getStateInfo(ctx.getSource()),
-                getStateInfo(ctx.getTarget()));
-    }
+//    @Bean
+//    public Action<BookStates, BookEvents> entryAction() {
+//        return ctx -> LOGGER.info("Entry action {} to get from {} to {}",
+//                ctx.getEvent(),
+//                getStateInfo(ctx.getSource()),
+//                getStateInfo(ctx.getTarget()));
+//    }
+//
+//    @Bean
+//    public Action<BookStates, BookEvents> exitAction() {
+//        return ctx -> LOGGER.info("Exit action {} to get from {} to {}",
+//                ctx.getEvent(),
+//                getStateInfo(ctx.getSource()),
+//                getStateInfo(ctx.getTarget()));
+//    }
 }
