@@ -32,7 +32,5 @@ public class Application implements CommandLineRunner {
         logger.info("borrow accepted: " + borrowAccepted);
         returnAccepted = stateMachine.sendEvent(BookEvents.RETURN);
         logger.info("return accepted: " + returnAccepted);
-
-        stateMachine.getStateMachineA
     }
 }
