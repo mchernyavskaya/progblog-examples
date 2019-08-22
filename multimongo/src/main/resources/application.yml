@@ -1,0 +1,15 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017
+      database: multimongo-core
+
+additional-db:
+  internal:
+    uri: mongodb://localhost:27017
+    database: multimongo-internal
+  external:
+    uri: mongodb://localhost:27017
+    database: multimongo-external
+
+
