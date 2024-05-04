@@ -1,0 +1,26 @@
+# deleting the test index if exists
+DELETE /mc-test-index
+
+# creating an index with mapping
+PUT /mc-test-index
+
+PUT /mc-test-index/_mapping
+{
+  "properties": {
+    "long_field": {
+      "type": "long",
+      "coerce": false
+    },
+    "long_field_coerced": {
+      "type": "long",
+      "coerce": true
+    }
+  }
+}
+
+# getting mappings and settings
+GET /mc-test-index/_mapping
+
+GET /mc-test-index/_mapping/field/long_field_coerced
+
+GET /mc-test-index/_settings?include_defaults=true
