@@ -1,0 +1,3 @@
+[submodule "kibana-operator"]
+	path = kibana-operator
+	url = https://github.com/mchernyavskaya/kibana-operator
